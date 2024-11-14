@@ -1,9 +1,9 @@
-# Your Name Here
+# Jared Vickrey
 # UWYO COSC 1010
-# Submission Date
-# Lab XX
-# Lab Section:
-# Sources, people worked with, help given to:
+# 11/12/24
+# Lab 08
+# Lab Section:10
+# Sources, people worked with, help given to: https://stackoverflow.com/a/65929692
 # your
 # comments
 # here
@@ -14,8 +14,19 @@
 # Other wise return the converted int or float 
 # Floats should only have one decimal point in them 
 
-
-print("*" * 75)
+def checkFloat(i):
+    try:
+        float(i)
+        return True
+    except ValueError:
+        return False
+    
+def checkInt(i):
+    try:
+        int(i)
+        return True
+    except ValueError:
+        return False
 
 
 # Point-slope y = mx + b
@@ -23,6 +34,7 @@ print("*" * 75)
 # Where b is the y-intercept, where the line crosses the y-axis (x = 0)
 # m is the slope of the line, the rate of change, how steep the line is
 # x is the variable, and is determined by which point on the graph you wish to evaluate
+
 # Create a function slope_intercept that takes in four parameters
     # m, the slope
     # b, the intercept
@@ -38,6 +50,45 @@ print("*" * 75)
 # Remember all inputs are strings, but the function needs ints or floats
 # Call your function and print the resulting list
 
+
+def slopeIntercept(m,b,xLower,xUpper):
+    yValues = []
+    for x in range(xLower, xUpper + 1):
+        y = m * x + b
+        yValues.append(y)
+    return yValues
+
+print('type "exit" to end')
+
+while 1==1:
+    m = input("Slope, m: ")
+    if m.lower() == "exit":
+        break
+    if not checkFloat(m):
+        print("Invalid input")
+        continue
+    m=float(m)
+    b = input("X Intercept, B: ")
+    if not checkFloat(b):
+        print("Invalid input")
+        continue
+    b=float(b)
+    xUpper = input("Upper bound for X: ")
+    if not checkInt(xUpper):
+        print("Invalid input")
+        continue
+    xUpper=int(xUpper)
+    xLower = input("Lower bound for X: ")
+    if not checkInt(xLower):
+        print("Invalid input")
+        continue
+    xLower=int(xLower)
+    if xLower > xUpper:
+        print("Invalid input")
+        continue
+    print(slopeIntercept(m,b,xLower,xUpper))
+    break
+
 print("*" * 75)
 
 
@@ -48,3 +99,47 @@ print("*" * 75)
 # Create a loop like above to prompt the user for input for the three values
 # Create a second function that just does the square root operation 
     # If the number you are trying to take the square root of is negative, return null
+def checkSqrt(i):
+    if i < 0:
+        return None
+    else:
+        return i ** 0.5
+
+def quadraticFormula(a, b, c):
+    discriminant = b ** 2 - 4 * a * c
+    sqrtDisc = checkSqrt(discriminant)
+    if sqrtDisc is None:
+        return None
+    x1 = (-b + sqrtDisc) / (2 * a)
+    x2 = (-b - sqrtDisc) / (2 * a)
+    return [x1, x2]
+
+print('type "exit" to end')
+
+while True:
+    a = input("Coefficient a: ")
+    if a.lower() == "exit":
+        break
+    if not checkFloat(a):
+        print("Invalid input")
+        continue
+    a = float(a)
+    if a == 0:
+        print("Invalid input")
+        continue
+    b = input("Coefficient b: ")
+    if not checkFloat(b):
+        print("Invalid input")
+        continue
+    b = float(b)
+    c = input("Coefficient c: ")
+    if not checkFloat(c):
+        print("Invalid input")
+        continue
+    c = float(c)
+    result = quadraticFormula(a, b, c)
+    if result is None:
+        print("No real solutions")
+    else:
+        print("Solutions are:", result)
+    break
